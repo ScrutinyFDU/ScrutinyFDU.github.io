@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章标题 - 我的个人博客</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            "HTML-CSS": {
+                preferredFont: "TeX",
+                extensions: ["tex2jax.js"],
+                noRefreshes: true
+            },
+            SVG: {
+                preferredFont: "TeX",
+                extensions: ["tex2jax.js"],
+                noRefreshes: true
+            },
+            NativeMML: {
+                extensions: ["tex2jax.js"],
+                noRefreshes: true
+            }
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" style="color:white; text-decoration: none;">我的个人博客</a></h1>
+        <nav>
+            <a href="index.html">首页</a>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h2 id="article-title">文章标题</h2>
+            <p class="article-meta">发布日期: <span id="article-date">YYYY-MM-DD</span></p>
+            <div class="article-content">
+                <p>这是文章的第一段。</p>
+                <p>这里可以包含数学公式，例如一个简单的二次方程：$ax^2 + bx + c = 0$。或者更复杂的块级公式：</p>
+                $$
+                E=mc^2
+                $$
+                <p>希望您喜欢这篇文章！</p>
+            </div>
+            <a href="index.html" class="back-link">&leftarrow; 返回首页</a>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 我的个人博客. All rights reserved.</p>
+    </footer>
+</body>
+</html>
