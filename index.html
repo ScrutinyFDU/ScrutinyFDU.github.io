@@ -1,6 +1,60 @@
-<p>我是Scrutiny，这是我的个人网站。 </p>
-<p>很高兴你来到这里, 你可以在以下的网站找到我</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人博客</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            // Configuration for HTML-CSS, SVG and NativeMML output
+            "HTML-CSS": {
+                preferredFont: "TeX",
+                extensions: ["tex2jax.js"],
+                noRefreshes: true
+            },
+            SVG: {
+                preferredFont: "TeX",
+                extensions: ["tex2jax.js"],
+                noRefreshes: true
+            },
+            NativeMML: {
+                extensions: ["tex2jax.js"],
+                noRefreshes: true
+            }
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+<body>
+    <header>
+        <h1>我的个人博客</h1>
+        <nav>
+            <a href="index.html">首页</a>
+            </nav>
+    </header>
 
-<ul>
-  <li> <a href="https://www.luogu.com.cn/user/258325">洛谷</a> </li>
-</ul>
+    <main>
+        <section id="articles-list">
+            <h2>最新文章</h2>
+            <div id="articles-container">
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 我的个人博客. All rights reserved.</p>
+    </footer>
+
+    <script src="articles.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
