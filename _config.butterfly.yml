@@ -19,8 +19,6 @@ nav:
 
 menu:
   首页 Home: / || fas fa-home
-  归档 Archives: /archives/ || fas fa-archive
-  标签 Tags: /tags/ || fas fa-tags
   分类 Categories: /categories/ || fas fa-folder-open
   简历 CV: /cv/ || fas fa-id-card
   论文 Publications: /publications/ || fas fa-book
