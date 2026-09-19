@@ -1,0 +1,220 @@
+/* 一天到晚游泳的鱼 · 自定义样式
+ * 内容：① 海洋分层背景（替代纯色）② 顶部 banner 渐变 + 光束
+ *       ③ 导航栏 夜间模式 / 中英文 按钮 ④ 副标题 ⑤ 语言块显隐
+ * Hexo 源码位置：source/css/ocean.css，并在 _config.butterfly.yml 的 inject.head 引入 */
+
+:root {
+  --ocean-top: #dbf1fa;
+  --ocean-mid: #eef8fc;
+  --ocean-bottom: #f8fbfd;
+  --ocean-glow-1: rgba(110, 195, 240, 0.42);
+  --ocean-glow-2: rgba(160, 222, 245, 0.32);
+  --ocean-glow-3: rgba(255, 255, 255, 0.55);
+  --header-a: rgba(20, 95, 145, 0.82);
+  --header-b: rgba(52, 155, 225, 0.72);
+  --header-c: rgba(125, 208, 232, 0.62);
+  --ray-color: rgba(255, 255, 255, 0.14);
+}
+[data-theme='dark'] {
+  --ocean-top: #05182b;
+  --ocean-mid: #08131f;
+  --ocean-bottom: #0b0f16;
+  --ocean-glow-1: rgba(35, 110, 175, 0.35);
+  --ocean-glow-2: rgba(18, 70, 120, 0.30);
+  --ocean-glow-3: rgba(60, 140, 200, 0.10);
+  --header-a: rgba(3, 17, 33, 0.80);
+  --header-b: rgba(11, 55, 87, 0.72);
+  --header-c: rgba(20, 90, 134, 0.62);
+  --ray-color: rgba(160, 210, 255, 0.07);
+}
+
+/* ① 主背景：两团柔光 + 上深下浅的海水渐变；鱼画布 (z-index:-1) 会浮在它上面 */
+body {
+  background:
+    radial-gradient(1100px 560px at 12% -8%, var(--ocean-glow-1), transparent 62%),
+    radial-gradient(900px 480px at 88% 18%, var(--ocean-glow-2), transparent 62%),
+    radial-gradient(700px 400px at 50% 110%, var(--ocean-glow-3), transparent 60%),
+    linear-gradient(180deg, var(--ocean-top) 0%, var(--ocean-mid) 45%, var(--ocean-bottom) 100%) !important;
+  background-attachment: fixed !important;
+  transition: background 0.5s;
+}
+/* 内容卡片略带磨砂感，让背景透一点点 */
+#recent-posts .recent-post-item,
+.card-widget,
+#page,
+#post {
+  backdrop-filter: saturate(1.1) blur(2px);
+  -webkit-backdrop-filter: saturate(1.1) blur(2px);
+}
+[data-theme='light'] #recent-posts .recent-post-item,
+[data-theme='light'] .card-widget,
+[data-theme='light'] #page,
+[data-theme='light'] #post {
+  background: rgba(255, 255, 255, 0.92);
+}
+[data-theme='dark'] #recent-posts .recent-post-item,
+[data-theme='dark'] .card-widget,
+[data-theme='dark'] #page,
+[data-theme='dark'] #post {
+  background: rgba(18, 22, 30, 0.88);
+}
+
+/* ② 顶部 banner：半透明的深海→浅海渐变，叠在 body 海水背景之上，鱼群可以隐约从 banner 里游过 */
+#page-header.full_page,
+#page-header.not-home-page,
+#page-header.post-bg {
+  background-image: linear-gradient(160deg, var(--header-a) 0%, var(--header-b) 58%, var(--header-c) 100%) !important;
+  background-color: transparent !important;
+}
+/* 柔和光束（三条宽窄不一的斜向柔光，缓慢漂移） */
+#page-header.full_page:after,
+#page-header.not-home-page:after,
+#page-header.post-bg:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(108deg, transparent 18%, var(--ray-color) 30%, transparent 42%),
+    linear-gradient(108deg, transparent 46%, var(--ray-color) 52%, transparent 58%),
+    linear-gradient(108deg, transparent 68%, var(--ray-color) 80%, transparent 92%);
+  background-size: 160% 100%;
+  animation: ocean-rays 40s ease-in-out infinite alternate;
+}
+@keyframes ocean-rays {
+  from { background-position: 0% 0; }
+  to   { background-position: 100% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #page-header:after { animation: none !important; }
+}
+/* 首页标题 / 副标题 位于光束之上 */
+#page-header #site-info, #page-header #page-site-info, #page-header #nav, #page-header #scroll-down { z-index: 2; }
+
+/* ④ 副标题 */
+#page-header #site-subtitle {
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.05em;
+  letter-spacing: 0.04em;
+}
+@media screen and (min-width: 768px) {
+  #page-header #site-subtitle { font-size: 1.35em; }
+}
+
+/* ③ 导航栏右侧两个按钮：夜间模式 / 中英文 */
+#nav .nav-extra {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 14px;
+  vertical-align: middle;
+}
+#nav .nav-extra button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 28px;
+  padding: 0 9px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--light-grey);
+  font-size: 0.72em;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+#nav .nav-extra button:hover {
+  background: rgba(255, 255, 255, 0.28);
+  color: var(--white);
+  border-color: var(--white);
+}
+#nav .nav-extra button i { font-size: 1.1em; }
+/* 导航吸顶（白底）时按钮换成深色描边 */
+#page-header.nav-fixed #nav .nav-extra button {
+  border-color: rgba(0, 0, 0, 0.18);
+  background: transparent;
+  color: var(--font-color);
+}
+#page-header.nav-fixed #nav .nav-extra button:hover {
+  background: var(--text-bg-hover);
+  color: #fff;
+  border-color: transparent;
+}
+[data-theme='dark'] #page-header.nav-fixed #nav .nav-extra button {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+@media screen and (max-width: 768px) {
+  #nav .nav-extra { margin-left: 6px; }
+  #nav .nav-extra button { min-width: 30px; height: 26px; padding: 0 7px; }
+}
+
+/* ⑤ 语言块：无 JS 或未选择时显示中文；html[data-lang] 由 lang-toggle.js 设置 */
+.lang-block { display: none; }
+html:not([data-lang='en']) .lang-block[lang='zh'],
+html[data-lang='en'] .lang-block[lang='en'] { display: block; }
+/* 行内双语文本由 lang-toggle.js 处理：<span data-zh="..." data-en="..."></span> */
+/* 旧的页面内切换按钮（兼容保留） */
+.lang-switch { margin-bottom: 12px; }
+.lang-switch button {
+  margin: 0 4px;
+  padding: 2px 12px;
+  border: 1px solid var(--btn-bg);
+  border-radius: 12px;
+  background: none;
+  color: var(--font-color);
+  cursor: pointer;
+}
+.lang-switch button.active { background: var(--btn-bg); color: #fff; }
+
+/* ⑥ 文章底部随机歌词方块（lyrics-card.js） */
+.lyric-card {
+  position: relative;
+  margin: 2.2em 0 1.2em;
+  padding: 18px 22px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(73, 177, 245, 0.28);
+  border-left: 4px solid var(--btn-bg);
+  background: linear-gradient(135deg, rgba(73, 177, 245, 0.10), rgba(127, 211, 232, 0.06) 60%, transparent);
+  transition: opacity 0.18s;
+}
+.lyric-card.is-switching { opacity: 0; }
+.lyric-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  color: var(--card-meta);
+  font-size: 0.85em;
+  letter-spacing: 0.06em;
+}
+.lyric-card-shuffle {
+  border: 0;
+  background: none;
+  color: var(--card-meta);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.lyric-card-shuffle:hover { color: var(--btn-bg); background: rgba(73, 177, 245, 0.12); }
+.lyric-card-lines p {
+  margin: 0;
+  line-height: 1.9;
+  color: var(--font-color);
+  font-size: 0.98em;
+}
+.lyric-card-meta {
+  margin-top: 10px;
+  text-align: right;
+  color: var(--card-meta);
+  font-size: 0.9em;
+  font-style: italic;
+}
+[data-theme='dark'] .lyric-card {
+  border-color: rgba(120, 190, 240, 0.22);
+  background: linear-gradient(135deg, rgba(60, 140, 200, 0.14), rgba(30, 90, 140, 0.06) 60%, transparent);
+}
